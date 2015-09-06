@@ -15,14 +15,15 @@ router.get('/', function(req, res) {
     //    socket.emit('gopro', {hello: 'world'});
     //});
 
-
-    cam.directory(function(data, err){
+  
+    /*cam.directory(function(data, err){
         dirData = fs.readdirSync(directoryData);
         console.log(dirData);
         console.log('jh');
-    });
+    });*/
+	console.log(cam.stopCapture());
 
-    res.render('index', { title: 'data' });
+    res.render('index', { title: 'Maestro' });
 });
 
 
