@@ -9,9 +9,13 @@
 
 #include <Servo.h> 
 
+#define REST_COMMAND 0
 #define FIST_COMMAND 1
 #define WAVE_IN_COMMAND 2
 #define WAVE_OUT_COMMAND 3
+#define FINGERS_SPREAD_COMMAND 4
+#define DOUBLE_TAP_COMMAND 5
+#define UNKNOWN_COMMAND 6
 
 Servo servo1; // horizontal (bottom) motor
 Servo servo2; // vertical (upper) motor
