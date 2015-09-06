@@ -8,9 +8,17 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="http://localhost:8000/javascripts/socket.io-client/socket.io.js"></script>
     <script src="javascripts/main.js"></script>
+    <!--<script src="javascripts/video.js"></script>-->
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <p>Bem Vindo ao <%= title %></p>
+
+    <video id="video1" class="video-js vjs-default-skin"
+      controls preload="auto" width="640" height="264"
+      poster="http://video-js.zencoder.com/oceans-clip.png"
+      data-setup='{"example_option":true}'>
+      <source src="http://10.5.5.9:8080/live/amba.m3u8" />
+    </video>
   </body>
 </html>
