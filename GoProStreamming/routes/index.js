@@ -4,6 +4,7 @@ var router = express.Router();
 var Camera = require('gopro').Camera;
 var cam = new Camera('10.5.5.9', 'goprohero');
 var fs = require('fs');
+var com = require("serialport");
 
 
 
@@ -21,7 +22,28 @@ router.get('/', function(req, res) {
         console.log(dirData);
         console.log('jh');
     });*/
-	console.log(cam.stopCapture());
+
+	
+	var serialPort = new com.SerialPort("PORTA", {
+	    baudrate: 9600,
+	    parser: com.parsers.readline('\r\n')
+	  });
+
+	serialPort.on('open',function() {
+	  console.log('Port open');
+	});
+
+	serialPort.on('data', function(data) {
+	  console.log(data);
+	  if(data=='start')
+	  	cam.startCapture();
+	  else if(data=='stop')
+	  	cam.stopCapture();
+	});
+
+
+	
+	
 
     res.render('index', { title: 'Maestro' });
 });
