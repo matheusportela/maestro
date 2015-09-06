@@ -11,6 +11,8 @@
 // The only file that needs to be included to use the Myo C++ SDK is myo.hpp.
 #include <myo/myo.hpp>
 
+#include <fstream>
+
 // Classes that inherit from myo::DeviceListener can be used to receive events from Myo devices. DeviceListener
 // provides several virtual functions for handling different kinds of events. If you do not override an event, the
 // default behavior is to do nothing.
@@ -76,29 +78,57 @@ public:
             myo->unlock(myo::Myo::unlockTimed);
         }
 
+        std::string output_string;
+
         switch (currentPose.type()) {
             case myo::Pose::fist:
                 std::cout << "Fist" << std::endl;
+                output_string = "Fist";
                 break;
-            case myo::Pose::rest:
-                std::cout << "Rest" << std::endl;
-                break;
+
             case myo::Pose::waveIn:
-                std::cout << "Wave in" << std::endl;
+                std::cout << "Wave In" << std::endl;
+                output_string = "Wave In";
                 break;
+
             case myo::Pose::waveOut:
-                std::cout << "Wave out" << std::endl;
+                std::cout << "Wave Out" << std::endl;
+                output_string = "Wave Out";
                 break;
+
             case myo::Pose::fingersSpread:
-                std::cout << "Fingers spread" << std::endl;
+                std::cout << "Fingers Spread" << std::endl;
+                output_string = "Fingers Spread";
                 break;
+
             case myo::Pose::doubleTap:
-                std::cout << "Double tap" << std::endl;
+                std::cout << "Double Tap" << std::endl;
+                output_string = "Double Tap";
                 break;
+
             case myo::Pose::unknown:
                 std::cout << "Unknown" << std::endl;
                 break;
+
+            case myo::Pose::rest:
+            default:
+                break;
         };
+
+        if (output_string.size() > 0)
+        {
+            std::ofstream output;
+            output.open("myo_pose.txt", std::ios::out | std::ios::trunc);
+
+            if (!output.is_open())
+            {
+                std::cerr << "Not able to open the file" << std::endl;
+                return;
+            }
+
+            output << output_string;
+            output.close();
+        }
     }
 
     // onArmSync() is called whenever Myo has recognized a Sync Gesture after someone has put it on their
